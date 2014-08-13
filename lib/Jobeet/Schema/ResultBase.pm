@@ -25,4 +25,14 @@ sub update {
     $self->next::method(@_);
 }
 
+#sub delete {
+#    my $self = shift;
+#
+#    if ($self->can('deleted_at')) {
+#        $self->delete_at( Jobeet::Schema->now );
+#    }
+#
+#    $self->next::method(@_);
+#}
+
 1;
