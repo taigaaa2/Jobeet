@@ -1,6 +1,5 @@
 package Jobeet::Controller;
 use Ark 'Controller';
-use Jobeet::Models;
 
 # default 404 handler
 sub default :Path :Args {
@@ -15,8 +14,6 @@ sub index :Path :Args(0) {
     $c->res->body('Ark Default Index');
 }
 
-__PACKAGE__->meta->make_immutable;
-
 sub end :Private {
     my ($self, $c) = @_;
 
@@ -24,3 +21,32 @@ sub end :Private {
         $c->forward( $c->view('MT') );
     }
 }
+
+1;
+
+#package Jobeet::Controller;
+#use Ark 'Controller';
+#use Jobeet::Models;
+#
+## default 404 handler
+#sub default :Path :Args {
+#    my ($self, $c) = @_;
+#
+#    $c->res->status(404);
+#    $c->res->body('404 Not Found');
+#}
+#
+#sub index :Path :Args(0) {
+#    my ($self, $c) = @_;
+#    $c->res->body('Ark Default Index');
+#}
+#
+#__PACKAGE__->meta->make_immutable;
+#
+#sub end :Private {
+#    my ($self, $c) = @_;
+#
+#    unless ($c->res->body or $c->res->status =~ /^3\d\d/) {
+#        $c->forward( $c->view('MT') );
+#    }
+#}
