@@ -3,6 +3,8 @@ use Ark 'Controller';
 
 use Jobeet::Models;
 
+with 'Ark::ActionClass::Form';
+
 sub index :Path {
     my ($self, $c) = @_;
 
@@ -54,6 +56,16 @@ sub edit :Chained('job') :PathPart :Args(0) {
 # /job/{job_id}/delete （削除）
 sub delete :Chained('job') :PathPart :Args(0) {
     my ($self, $c) = @_;
+}
+
+sub create :Local :Form('Jobeet::Form::Job') {
+    my ($self, $c) = @_;
+
+    if ($c->req->method eq 'POST' and $self->form->submitted_and_valid) {
+        my $job = models('Schema::Job')->create_from_form($self->form);
+        $c->redirect( $c->uri_for('/job', $job->token) );
+    }
+
 }
 
 1;
